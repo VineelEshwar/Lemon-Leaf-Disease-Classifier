@@ -1,5 +1,8 @@
+# PyTorch
+torch==2.2.2
+torchvision==0.17.2
+
 # Core ML
-tensorflow==2.19.0
 scikit-learn
 
 # Data handling
@@ -15,7 +18,7 @@ matplotlib
 seaborn
 contourpy==1.2.1
 
-# Graph processing (downgraded for Python 3.10)
+# Graph processing (compatible for Python 3.10)
 networkx==3.2.1
 
 # Streamlit UI
