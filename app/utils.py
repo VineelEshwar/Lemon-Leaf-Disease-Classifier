@@ -5,19 +5,21 @@ from torchvision import transforms
 
 def preprocess_image(image):
     """
-    Preprocesses an uploaded image for model prediction.
-    Ensures it is a PIL RGB image, resizes, normalizes, and adds batch dimension.
+    Preprocess image for EfficientNet model.
+    Works with Streamlit file uploads (jpg, png, etc.).
+    Converts image to RGB, resizes, normalizes, and adds batch dimension.
     """
-    # Ensure image is a PIL Image
+    # If it's a file-like object, open it
     if not isinstance(image, Image.Image):
         image = Image.open(image)
 
-    # Convert to RGB to avoid issues with RGBA/Grayscale
-    image = image.convert("RGB")
+    # Force RGB (avoids errors from RGBA, L, P, CMYK modes)
+    if image.mode != "RGB":
+        image = image.convert("RGB")
 
-    # Transform pipeline (match training config)
+    # Define transforms (match training settings)
     transform = transforms.Compose([
-        transforms.Resize((224, 224)),  # Match your model's expected input size
+        transforms.Resize((224, 224)),  # Model's expected input size
         transforms.ToTensor(),
         transforms.Normalize(
             mean=[0.485, 0.456, 0.406],  # ImageNet mean
@@ -25,5 +27,5 @@ def preprocess_image(image):
         )
     ])
 
-    # Apply transforms and add batch dimension [1, C, H, W]
-    return transform(image).unsqueeze(0)
+    tensor = transform(image)
+    return tensor.unsqueeze(0)  # Add batch dimension
