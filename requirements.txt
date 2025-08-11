@@ -7,8 +7,7 @@ scikit-learn
 
 # Data handling
 pandas
-numpy
-
+numpy<2
 # Image processing
 opencv-python-headless
 Pillow
