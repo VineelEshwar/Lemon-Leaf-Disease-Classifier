@@ -63,7 +63,7 @@ fertilizer_guide = {
 @st.cache_resource
 def load_model():
     model = EfficientNetModel(num_classes=9)
-    model_path = os.path.join("..", "model", "effnet_for_lemon_50.pth")
+    model_path = os.path.join("..", "Model", "effnet_for_lemon_50.pth")
     model.load_state_dict(torch.load(model_path, map_location=torch.device("cpu")))
     model.eval()
     return model
